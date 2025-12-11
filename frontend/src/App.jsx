@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import './App.css';
-
+import './index.css';
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [bookings, setBookings] = useState([]);
