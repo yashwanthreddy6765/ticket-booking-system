@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import './index.css';
+
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [bookings, setBookings] = useState([]);
   const [events] = useState([
-    { id: 1, name: 'Concert - Taylor Swift', date: '2024-02-15', price: 150, available: 100 },
-    { id: 2, name: 'Sports - Cricket IPL', date: '2024-02-20', price: 50, available: 500 },
-    { id: 3, name: 'Theater - Hamilton', date: '2024-03-10', price: 120, available: 200 },
-    { id: 4, name: 'Conference - TechFest', date: '2024-03-25', price: 75, available: 300 },
+    { id: 1, name: '🎬 आमिर खान की फिल्म - Mahavira Theatre, Hyderabad', date: '2024-02-15', price: 299, available: 100 },
+    { id: 2, name: '🎭 Vyjayanthimala Theatre, Chennai', date: '2024-02-20', price: 249, available: 80 },
+    { id: 3, name: '🎪 संगीत कार्यक्रम - Delhi Concert Hall', date: '2024-03-10', price: 399, available: 120 },
+    { id: 4, name: '🏏 IPL Match - Eden Gardens, Kolkata', date: '2024-03-25', price: 799, available: 200 },
+    { id: 5, name: '🎬 राज पली सिनेमा - Hyderabad', date: '2024-04-05', price: 279, available: 90 },
+    { id: 6, name: '⚾ India vs Australia - Arun Jaitley Stadium, Delhi', date: '2024-04-15', price: 1299, available: 150 },
   ]);
   const [formData, setFormData] = useState({
     userName: '',
@@ -33,25 +36,25 @@ const App = () => {
 
     // Validation
     if (!formData.userName.trim()) {
-      setErrorMessage('Please enter your name');
+      setErrorMessage('कृपया अपना नाम दर्ज करें');
       return;
     }
     if (!formData.userEmail.trim() || !formData.userEmail.includes('@')) {
-      setErrorMessage('Please enter a valid email');
+      setErrorMessage('कृपया एक वैध ईमेल दर्ज करें');
       return;
     }
     if (!formData.eventId) {
-      setErrorMessage('Please select an event');
+      setErrorMessage('कृपया एक इवेंट चुनें');
       return;
     }
     if (formData.quantity < 1) {
-      setErrorMessage('Please select at least 1 ticket');
+      setErrorMessage('कृपया कम से कम 1 टिकट चुनें');
       return;
     }
 
     const selectedEvent = events.find(e => e.id === parseInt(formData.eventId));
     if (formData.quantity > selectedEvent.available) {
-      setErrorMessage(`Only ${selectedEvent.available} tickets available`);
+      setErrorMessage(`केवल ${selectedEvent.available} टिकट उपलब्ध हैं`);
       return;
     }
 
@@ -62,7 +65,7 @@ const App = () => {
       eventId: parseInt(formData.eventId),
       eventName: selectedEvent.name,
       totalPrice: selectedEvent.price * formData.quantity,
-      bookingDate: new Date().toLocaleDateString(),
+      bookingDate: new Date().toLocaleDateString('hi-IN'),
     };
 
     setBookings([...bookings, newBooking]);
@@ -78,25 +81,25 @@ const App = () => {
   return (
     <div className="app">
       <nav className="navbar">
-        <h1>🎫 Ticket Booking System</h1>
+        <h1>🎟️ भारतीय टिकट बुकिंग - Indian Ticket Booking</h1>
         <div className="nav-links">
           <button
             className={currentPage === 'home' ? 'active' : ''}
             onClick={() => setCurrentPage('home')}
           >
-            Home
+            होम / Home
           </button>
           <button
             className={currentPage === 'booking' ? 'active' : ''}
             onClick={() => setCurrentPage('booking')}
           >
-            Book Tickets
+            टिकट बुक करें / Book Tickets
           </button>
           <button
             className={currentPage === 'bookings' ? 'active' : ''}
             onClick={() => setCurrentPage('bookings')}
           >
-            My Bookings ({bookings.length})
+            मेरी बुकिंग ({bookings.length})
           </button>
         </div>
       </nav>
@@ -105,28 +108,28 @@ const App = () => {
         {currentPage === 'home' && (
           <section className="home">
             <div className="hero">
-              <h2>Welcome to Ticket Booking System</h2>
-              <p>Book your favorite events with ease and confidence</p>
+              <h2>भारतीय टिकट बुकिंग सिस्टम में आपका स्वागत है</h2>
+              <p>आसानी से और आत्मविश्वास के साथ अपने पसंदीदा इवेंट की टिकटें बुक करें</p>
               <button onClick={() => setCurrentPage('booking')} className="cta-button">
-                Start Booking Now
+                अभी बुकिंग शुरू करें
               </button>
             </div>
             <div className="features">
               <div className="feature-card">
-                <h3>✨ Easy Booking</h3>
-                <p>Book tickets in just a few clicks</p>
+                <h3>✨ आसान बुकिंग</h3>
+                <p>कुछ ही क्लिक में टिकट बुक करें</p>
               </div>
               <div className="feature-card">
-                <h3>🛡️ Secure Payment</h3>
-                <p>Safe and encrypted transactions</p>
+                <h3>🛡️ सुरक्षित भुगतान</h3>
+                <p>सुरक्षित और एन्क्रिप्टेड लेनदेन</p>
               </div>
               <div className="feature-card">
-                <h3>📱 Mobile Friendly</h3>
-                <p>Book from anywhere, anytime</p>
+                <h3>📱 मोबाइल फ्रेंडली</h3>
+                <p>कहीं से भी, कभी भी बुक करें</p>
               </div>
               <div className="feature-card">
-                <h3>⚡ Instant Confirmation</h3>
-                <p>Get your booking confirmed instantly</p>
+                <h3>⚡ तुरंत पुष्टि</h3>
+                <p>तुरंत बुकिंग पुष्टि प्राप्त करें</p>
               </div>
             </div>
           </section>
@@ -134,10 +137,10 @@ const App = () => {
 
         {currentPage === 'booking' && (
           <section className="booking-section">
-            <h2>Book Your Tickets</h2>
+            <h2>अपनी टिकटें बुक करें</h2>
             {bookingSuccess && (
               <div className="success-message">
-                ✅ Booking confirmed! Check your bookings tab.
+                ✅ बुकिंग की गई! अपनी बुकिंग टैब देखें।
               </div>
             )}
             {errorMessage && (
@@ -149,54 +152,54 @@ const App = () => {
               {events.map(event => (
                 <div key={event.id} className="event-card">
                   <h3>{event.name}</h3>
-                  <p><strong>Date:</strong> {event.date}</p>
-                  <p><strong>Price:</strong> ${event.price}</p>
-                  <p><strong>Available:</strong> {event.available} tickets</p>
+                  <p><strong>तारीख:</strong> {event.date}</p>
+                  <p><strong>कीमत:</strong> ₹{event.price}</p>
+                  <p><strong>उपलब्ध:</strong> {event.available} टिकट</p>
                 </div>
               ))}
             </div>
             <form onSubmit={handleBookTicket} className="booking-form">
-              <h3>Enter Your Details</h3>
+              <h3>अपना विवरण दर्ज करें</h3>
               <div className="form-group">
-                <label>Name:</label>
+                <label>नाम:</label>
                 <input
                   type="text"
                   name="userName"
                   value={formData.userName}
                   onChange={handleInputChange}
-                  placeholder="Your full name"
+                  placeholder="आपका पूरा नाम"
                   required
                 />
               </div>
               <div className="form-group">
-                <label>Email:</label>
+                <label>ईमेल:</label>
                 <input
                   type="email"
                   name="userEmail"
                   value={formData.userEmail}
                   onChange={handleInputChange}
-                  placeholder="your@email.com"
+                  placeholder="आपका@ईमेल.कॉम"
                   required
                 />
               </div>
               <div className="form-group">
-                <label>Select Event:</label>
+                <label>इवेंट चुनें:</label>
                 <select
                   name="eventId"
                   value={formData.eventId}
                   onChange={handleInputChange}
                   required
                 >
-                  <option value="">-- Choose an event --</option>
+                  <option value="">-- एक इवेंट चुनें --</option>
                   {events.map(event => (
                     <option key={event.id} value={event.id}>
-                      {event.name} - ${event.price}
+                      {event.name} - ₹{event.price}
                     </option>
                   ))}
                 </select>
               </div>
               <div className="form-group">
-                <label>Number of Tickets:</label>
+                <label>टिकटों की संख्या:</label>
                 <input
                   type="number"
                   name="quantity"
@@ -210,12 +213,12 @@ const App = () => {
               {formData.eventId && (
                 <div className="price-display">
                   <strong>
-                    Total Price: ${events.find(e => e.id === parseInt(formData.eventId))?.price * formData.quantity || 0}
+                    कुल कीमत: ₹{events.find(e => e.id === parseInt(formData.eventId))?.price * formData.quantity || 0}
                   </strong>
                 </div>
               )}
               <button type="submit" className="submit-button">
-                Confirm Booking
+                बुकिंग की पुष्टि करें
               </button>
             </form>
           </section>
@@ -223,26 +226,26 @@ const App = () => {
 
         {currentPage === 'bookings' && (
           <section className="bookings-section">
-            <h2>My Bookings</h2>
+            <h2>मेरी बुकिंग</h2>
             {bookings.length === 0 ? (
-              <p className="no-bookings">You haven't booked any tickets yet.</p>
+              <p className="no-bookings">आपने अभी कोई टिकट बुक नहीं किया है।</p>
             ) : (
               <div className="bookings-list">
                 {bookings.map(booking => (
                   <div key={booking.id} className="booking-card">
                     <div className="booking-details">
                       <h3>{booking.eventName}</h3>
-                      <p><strong>Name:</strong> {booking.userName}</p>
-                      <p><strong>Email:</strong> {booking.userEmail}</p>
-                      <p><strong>Tickets:</strong> {booking.quantity}</p>
-                      <p><strong>Total Price:</strong> ${booking.totalPrice}</p>
-                      <p><strong>Booking Date:</strong> {booking.bookingDate}</p>
+                      <p><strong>नाम:</strong> {booking.userName}</p>
+                      <p><strong>ईमेल:</strong> {booking.userEmail}</p>
+                      <p><strong>टिकट:</strong> {booking.quantity}</p>
+                      <p><strong>कुल कीमत:</strong> ₹{booking.totalPrice}</p>
+                      <p><strong>बुकिंग की तारीख:</strong> {booking.bookingDate}</p>
                     </div>
                     <button
                       onClick={() => cancelBooking(booking.id)}
                       className="cancel-button"
                     >
-                      Cancel Booking
+                      बुकिंग रद्द करें
                     </button>
                   </div>
                 ))}
@@ -253,7 +256,7 @@ const App = () => {
       </main>
 
       <footer className="footer">
-        <p>&copy; 2024 Ticket Booking System. All rights reserved.</p>
+        <p>© 2024 भारतीय टिकट बुकिंग सिस्टम। सर्वाधिकार सुरक्षित।</p>
       </footer>
     </div>
   );
